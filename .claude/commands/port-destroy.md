@@ -59,31 +59,19 @@ kubectl delete namespace port-k8s-exporter
 
 ---
 
-# Part 2: Delete Port Folders, Blueprints, and Entities (User Action Required)
+# Part 2: Delete Port Blueprints and Entities (User Action Required)
 
-The easiest way to delete all custom blueprints and their entities is to delete the Port catalog folder(s) created during setup. This cascades deletion to all blueprints and entities inside.
+Delete the blueprints created during setup from the Data Model page.
 
 **Steps:**
-1. Go to [Port Catalog](https://app.getport.io/organization/catalog)
-2. Find the folder(s) created during setup (e.g., "Kubernetes Resources", "CRDs", "GitHub")
-3. Right-click on the folder → **Delete**
-4. Confirm deletion - this will delete all blueprints and entities inside
-
-**If blueprints are not in folders**, delete them individually:
-1. Go to [DevPortal Builder](https://app.getport.io/settings/data-model)
-2. For each custom blueprint, click "⋮" menu → **Delete All [Blueprint Name]**
-3. This deletes all entities AND the blueprint in one action
-
-**Do NOT delete these default blueprints:**
-- `cluster`
-- `namespace`
-- `workload`
-
-**Custom blueprints to delete:**
-- K8s resources: pod, service, replicaset, ingress, gateway, httproute
-- CRDs: capabilityscanconfig, remediationpolicy, resourcesyncconfig, solution, k8s-resource
-- GitHub: githubWorkflow, githubWorkflowRun, githubPullRequest
-- Other: prompt
+1. Use `mcp__port-vscode-eu__list_blueprints` to discover which blueprints exist
+2. Identify blueprints that were created by `/port-setup` (exclude system blueprints starting with `_`)
+3. Present the list to the user
+4. Instruct the user to:
+   - Go to [Data Model](https://app.getport.io/settings/data-model)
+   - **Tip:** Switch to **Cards** view (top-right toggle) to make it easier to find and delete blueprints
+   - For each blueprint, click the "⋮" menu → **Delete All [Blueprint Name]**
+   - This deletes all entities AND the blueprint in one action
 
 ---
 
