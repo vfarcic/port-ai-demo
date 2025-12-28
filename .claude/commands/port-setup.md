@@ -43,6 +43,22 @@ Before starting, discover what tools are available and gather configuration:
 
 **Note:** Always store manifests in Git for auditability, regardless of GitOps availability.
 
+## GitOps Workflow Rules
+
+**IMPORTANT: When ArgoCD or Flux is detected, NEVER run `kubectl apply` on application manifests.**
+
+Instead, follow this workflow:
+1. **Write manifests to Git** - Create the YAML files in the manifest directory
+2. **Commit and push** - The GitOps tool will detect changes and sync automatically
+3. **Verify sync status** - Use `kubectl get applications -n argocd` (ArgoCD) or `flux get all` (Flux)
+
+For **GitOps resources** (ArgoCD Applications, Flux Kustomizations/HelmReleases):
+- Discover the deployment pattern by examining existing resources in the cluster
+- Add new manifests to the appropriate watched directory so GitOps syncs them automatically
+
+For **Secrets without ESO**:
+- Use `kubectl create secret` directly (secrets cannot be stored unencrypted in Git)
+
 ---
 
 # Part 1: Kubernetes Exporter
